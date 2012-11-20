@@ -10,5 +10,6 @@ namespace EntityFrameworkMigrations
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public CustomerStatus Status { get; set; }
     }
 }

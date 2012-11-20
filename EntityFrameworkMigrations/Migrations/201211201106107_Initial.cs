@@ -13,6 +13,7 @@ namespace EntityFrameworkMigrations.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Name = c.String(),
+                        Status = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
