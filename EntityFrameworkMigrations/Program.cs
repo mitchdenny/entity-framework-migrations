@@ -1,6 +1,7 @@
 ﻿using EntityFrameworkMigrations.Migrations;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -45,9 +46,7 @@ namespace EntityFrameworkMigrations
 
         private static void MigrateUsingDbMigrator(string connectionString)
         {
-            var connectionInfo = new DbConnectionInfo(connectionString, "System.Data.SqlClient");
-            var configuration = new Configuration();
-            configuration.TargetDatabase = connectionInfo;
+            var configuration = GetConfiguration(connectionString);
 
             var migrator = new DbMigrator(configuration);
 
@@ -74,6 +73,14 @@ namespace EntityFrameworkMigrations
                 Console.WriteLine("\tPending: {0}", pending);
             }
             Console.WriteLine();
+        }
+
+        private static Configuration GetConfiguration(string connectionString)
+        {
+            var connectionInfo = new DbConnectionInfo(connectionString, "System.Data.SqlClient");
+            var configuration = new Configuration();
+            configuration.TargetDatabase = connectionInfo;
+            return configuration;
         }
 
         private static void ShowUsage()

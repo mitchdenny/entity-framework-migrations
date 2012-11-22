@@ -50,9 +50,13 @@
     <Compile Include="CustomerStatus.cs" />
     <Compile Include="GlobalDataContext.cs" />
     <Compile Include="Industry.cs" />
-    <Compile Include="Migrations\201211222147493_Initial.cs" />
-    <Compile Include="Migrations\201211222147493_Initial.Designer.cs">
-      <DependentUpon>201211222147493_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201211222159550_Initial.cs" />
+    <Compile Include="Migrations\201211222159550_Initial.Designer.cs">
+      <DependentUpon>201211222159550_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201211222201191_AddedIndustry.cs" />
+    <Compile Include="Migrations\201211222201191_AddedIndustry.Designer.cs">
+      <DependentUpon>201211222201191_AddedIndustry.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -63,8 +67,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201211222147493_Initial.resx">
-      <DependentUpon>201211222147493_Initial.cs</DependentUpon>
+    <Content Include="HowToAddMigration.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201211222159550_Initial.resx">
+      <DependentUpon>201211222159550_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211222201191_AddedIndustry.resx">
+      <DependentUpon>201211222201191_AddedIndustry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,7 +9,7 @@ namespace EntityFrameworkMigrations.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(GlobalDataContext context)
