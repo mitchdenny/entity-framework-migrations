@@ -18,5 +18,6 @@ namespace EntityFrameworkMigrations
         }
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Industry> Industries { get; set; }
     }
 }

@@ -1,0 +1,1 @@
+﻿Add-Migration -ConnectionString "Server=(local);Database=Sample;Integrated Security=SSPI;MultipleActiveResultSets=true;" -ConnectionProviderName "System.Data.SqlClient"
