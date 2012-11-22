@@ -14,6 +14,31 @@ namespace EntityFrameworkMigrations.Migrations
 
         protected override void Seed(GlobalDataContext context)
         {
+            SeedIndustries(context);
+            context.SaveChanges();
+        }
+
+        private void SeedIndustries(GlobalDataContext context)
+        {
+            InsertOrUpdateIndustry("Technology", context);
+            InsertOrUpdateIndustry("Finance", context);
+            InsertOrUpdateIndustry("Entertainment", context);
+            InsertOrUpdateIndustry("Hospitality", context);
+        }
+
+        private void InsertOrUpdateIndustry(string name, GlobalDataContext context)
+        {
+            var industry = context.Industries.SingleOrDefault(x => x.Name == name);
+
+            if (industry == null)
+            {
+                industry = new Industry()
+                {
+                    Name = name
+                };
+
+                context.Industries.Add(industry);
+            }
         }
     }
 }

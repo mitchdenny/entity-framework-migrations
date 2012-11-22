@@ -14,23 +14,22 @@ namespace EntityFrameworkMigrations
     {
         public static void Main(string[] args)
         {
-            if (args.Length != 2)
+            if (args.Length != 1)
             {
                 ShowUsage();
                 return;
             }
 
             var method = args[0];
-            var connectionString = args[1];
 
             switch (method.ToLower())
             {
                 case "dbmigrator":
-                    MigrateUsingDbMigrator(connectionString);
+                    MigrateUsingDbMigrator();
                     break;
 
                 case "initializer":
-                    MigrateUsingInitializer(connectionString);
+                    MigrateUsingInitializer();
                     break;
 
                 default:
@@ -39,31 +38,31 @@ namespace EntityFrameworkMigrations
             }
         }
 
-        private static void MigrateUsingInitializer(string connectionString)
+        private static void MigrateUsingInitializer()
         {
-            throw new NotImplementedException();
+            var initializer = new MigrateDatabaseToLatestVersion<GlobalDataContext, Configuration>("MigrationDemo");
+            Database.SetInitializer<GlobalDataContext>(initializer);
+            PrintSeededData();          
         }
 
-        private static void MigrateUsingDbMigrator(string connectionString)
+        private static void MigrateUsingDbMigrator()
         {
-            var configuration = GetConfiguration(connectionString);
+            var configuration = GetConfiguration();
 
             var migrator = new DbMigrator(configuration);
 
             Console.WriteLine("Before Migration");
-            foreach (var applied in migrator.GetDatabaseMigrations())
-            {
-                Console.WriteLine("\tApplied: {0}", applied);
-            }
-            foreach (var pending in migrator.GetPendingMigrations())
-            {
-                Console.WriteLine("\tPending: {0}", pending);
-            }
-            Console.WriteLine();
+            PrintMigrationStatus(migrator);
 
             migrator.Update();
 
             Console.WriteLine("After Migration");
+            PrintMigrationStatus(migrator);
+            PrintSeededData();
+        }
+
+        private static void PrintMigrationStatus(DbMigrator migrator)
+        {
             foreach (var applied in migrator.GetDatabaseMigrations())
             {
                 Console.WriteLine("\tApplied: {0}", applied);
@@ -75,9 +74,22 @@ namespace EntityFrameworkMigrations
             Console.WriteLine();
         }
 
-        private static Configuration GetConfiguration(string connectionString)
+        private static void PrintSeededData()
         {
-            var connectionInfo = new DbConnectionInfo(connectionString, "System.Data.SqlClient");
+            Console.WriteLine("Seeded Data");
+            using (var context = new GlobalDataContext("MigrationDemo"))
+            {
+                foreach (var industry in context.Industries)
+                {
+                    Console.WriteLine("Industry: {0}", industry.Name);
+                }
+            }
+            Console.WriteLine();
+        }
+
+        private static Configuration GetConfiguration()
+        {
+            var connectionInfo = new DbConnectionInfo("MigrationDemo");
             var configuration = new Configuration();
             configuration.TargetDatabase = connectionInfo;
             return configuration;
