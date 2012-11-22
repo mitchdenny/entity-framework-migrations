@@ -8,7 +8,7 @@ namespace EntityFrameworkMigrations.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Customers",
+                "dbo.Customer",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
@@ -21,7 +21,7 @@ namespace EntityFrameworkMigrations.Migrations
         
         public override void Down()
         {
-            DropTable("dbo.Customers");
+            DropTable("dbo.Customer");
         }
     }
 }
