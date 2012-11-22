@@ -47,7 +47,9 @@ namespace EntityFrameworkMigrations
 
         private static void MigrateUsingDbMigrator()
         {
-            var configuration = GetConfiguration();
+            var connectionInfo = new DbConnectionInfo("MigrationDemo");
+            var configuration = new Configuration();
+            configuration.TargetDatabase = connectionInfo;
 
             var migrator = new DbMigrator(configuration);
 
@@ -85,14 +87,6 @@ namespace EntityFrameworkMigrations
                 }
             }
             Console.WriteLine();
-        }
-
-        private static Configuration GetConfiguration()
-        {
-            var connectionInfo = new DbConnectionInfo("MigrationDemo");
-            var configuration = new Configuration();
-            configuration.TargetDatabase = connectionInfo;
-            return configuration;
         }
 
         private static void ShowUsage()
